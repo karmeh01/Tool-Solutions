@@ -20,10 +20,10 @@
 source ../utils/git-utils.sh
 
 set -eux -o pipefail
-PYTORCH_HASH=e872bf8f888bdbb27a03e03935db61babf7180b8  # From viable/strict
+PYTORCH_HASH=e872bf8f888bdbb27a03e03935db61babf7180b8  # 2.8.0.dev20250430 from viable/strict
 IDEEP_HASH=2ef932a861439e4cc9bb8baee8424b57573de023    # From ideep_pytorch  
 ONEDNN_HASH=69150ce5fe1f453af9125ca42a921e017092ccf7   # From main
-ACL_HASH=334108c0efc512efdc9576ba957dbcf5b7ee168a      # From main
+ACL_HASH=334108c0efc512efdc9576ba957dbcf5b7ee168a      # rc_25_04_29_0
 TORCH_AO_HASH=e1cb44ab84eee0a3573bb161d65c18661dc4a307 # From main
 
 git-shallow-clone https://github.com/pytorch/pytorch.git $PYTORCH_HASH
@@ -58,4 +58,5 @@ git-shallow-clone https://review.mlplatform.org/ml/ComputeLibrary $ACL_HASH
 git-shallow-clone https://github.com/pytorch/ao.git $TORCH_AO_HASH
 (
     cd ao
+    apply-github-patch pytorch/ao 1447 738d7f2c5a48367822f2bf9d538160d19f02341e # [Feat]: Add support for kleidiai quantization schemes
 )
